@@ -1,0 +1,50 @@
+<div class="big-container">
+    <div id="file-system" class="division left">
+        <h2 class="center">File System Segmentation</h2>
+    </div>
+    <div id="mft" class="division right">
+        <div class="information">
+            <label class="flex indicator"><strong>File System Type: NTFS</strong></label>
+            <label class="flex indicator"><strong>Full size: {{toGB(volume!.size)}} GB</strong></label>
+            <label class="flex"><strong class="indicator">Available Size: {{toGB(getFreeSpace())}} GB</strong>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="free-space"
+                        aria-valuemin="0" aria-valuemax="100">{{toPercentage(getFreeSpace())}}%</div>
+                </div>
+            </label>
+            <label class="flex"><strong class="indicator">Space in use: {{toGB(volume!.getSpaceInUse())}} GB</strong>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="use-space"
+                        aria-valuemin="0" aria-valuemax="100">{{toPercentage(volume!.getSpaceInUse())}}%</div>
+                </div>
+            </label>
+        </div>
+        <div class="mft">
+            <h2>DFT</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">File name</th>
+                        <th scope="col">Extension</th>
+                        <th scope="col">Head</th>
+                        <th scope="col">Size (MB)</th>
+                        <th scope="col">Creation Date</th>
+                        <th scope="col">Modification Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mft of volume!.dft">
+                        <th scope="row">{{mft.id}}</th>
+                        <td>{{mft.fileName}}</td>
+                        <td>{{mft.extension}}</td>
+                        <td>{{mft.blockList[0].id}}</td>
+                        <td>{{mft.size}}</td>
+                        <td>{{mft.creationDate | date : 'medium'}}</td>
+                        <td>{{mft.modificationDate | date : 'medium'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

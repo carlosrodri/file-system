@@ -1,0 +1,56 @@
+<div class="big-container">
+    <div id="file-system" class="division left">
+        <h2 class="center">File System Segmentation</h2>
+    </div>
+    <div id="mft" class="division right">
+        <div class="information">
+            <label class="flex indicator"><strong>File System Type: NTFS</strong></label>
+            <label class="flex indicator"><strong>Full size: {{toGB(volume!.size)}} GB</strong></label>
+            <label class="flex"><strong class="indicator">Available Size: {{toGB(volume!.getFreeSpace())}} GB</strong>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="free-space"
+                        aria-valuemin="0" aria-valuemax="100">{{toPercentage(volume!.getFreeSpace())}}%</div>
+                </div>
+            </label>
+            <label class="flex"><strong class="indicator">Space in use: {{toGB(volume!.getSpaceInUse())}} GB</strong>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="use-space"
+                        aria-valuemin="0" aria-valuemax="100">{{toPercentage(volume!.getSpaceInUse())}}%</div>
+                </div>
+            </label>
+        </div>
+        <div class="mft">
+            <h2>EXT Table</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">File name</th>
+                        <th scope="col">Extension</th>
+                        <th scope="col">Own</th>
+                        <th scope="col">Access</th>
+                        <th scope="col">Path</th>
+                        <th scope="col">Size (MB)</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Creation Date</th>
+                        <th scope="col">Modification Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let inode of volume!.inodeList">
+                        <th scope="row">{{inode.id}}</th>
+                        <td>{{inode.fileName}}</td>
+                        <td>{{inode.extension}}</td>
+                        <td>{{inode.own}}</td>
+                        <td>{{inode.access}}</td>
+                        <td>{{volume!.getPath(inode, '', volume!.name)}}</td>
+                        <td>{{inode.size}}</td>
+                        <td>{{inode.getLocation()}}</td>
+                        <td>{{inode.creationDate | date : 'medium'}}</td>
+                        <td>{{inode.modificationDate | date : 'medium'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
