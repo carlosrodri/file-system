@@ -1,6 +1,11 @@
 # FileSystem
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
+For run this project is necessary has angular framwork an NodeJs installed locally
+
+## Compile
+
+Run `npm i` or `npm install` for download all node dependencies
 
 ## Development server
 
